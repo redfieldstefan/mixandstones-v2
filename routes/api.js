@@ -44,7 +44,7 @@ module.exports = function(app) {
   });
 
   app.get(COCKTAIL_URL + '/:id', function(req, res) {
-    Cocktail.find({_id: req.params.id}, function(err, dbRes) {
+    Cocktail.findOne({_id: req.params.id}, function(err, dbRes) {
       if(err) {
         console.log(err);
         return dbRes.status(500).json({msg: 'server error'});
@@ -54,13 +54,17 @@ module.exports = function(app) {
   });
 
   app.put(COCKTAIL_URL + '/:id', function(req, res) {
-    var updatedCocktail = _prepForDb(req.body);
-    Cocktail.update({_id: req.params.id}, updatedCocktail, function(err, dbRes) {
-      if(err) {
-        console.log(err);
-        return dbRes.status(500).json({msg: 'server error'});
-      }
-      return res.status(200).json({msg: 'Cocktail updated'});
+    var updatedDrink = _prepForDb(req.body);
+    Cocktail.findOneAndUpdate({ _id: req.params.id },
+      updatedDrink, {
+        new: true
+      },
+      function(err, dbResponse) {
+        if (err) {
+          console.log(err);
+          return dbRes.status(500).json({msg: 'server error'});
+        }
+        return res.status(200).json(dbResponse);
     });
   });
 
