@@ -4,8 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "test_backend": "mocha test/server",
+    "test": "npm run test_backend",
+    "start": "node server/index",
     "db":"mongod --dbpath=./data"
   },
   "repository": {
