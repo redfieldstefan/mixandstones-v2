@@ -2,22 +2,15 @@
 
 var Cocktail = require('../models/cocktail_model');
 var Ingredient = require('../models/ingredient_model');
+var utils = require('../common/utils');
 
 var COCKTAIL_URL = '/api/cocktails';
 var INGREDIENT_URL = '/api/ingredients';
 
-var _urlify = function(cocktailName) {
-  return cocktailName
-    .toLowerCase()
-    .replace(/\s/g, '-')
-    .replace(/[^A-Za-z0-9\-]/g, '')
-    .replace(/-{2,}/g, '-');
-};
-
 var _prepForDb = function(cocktail) {
   return {
     name: cocktail.name,
-    url: _urlify(cocktail.name),
+    url: utils.formatForUrl(cocktail.name),
     description: cocktail.description ?
       cocktail.description :
       '',
@@ -51,7 +44,7 @@ module.exports = function(app) {
   });
 
   app.get(COCKTAIL_URL + '/:id', function(req, res) {
-    Cocktail.find({_id: req.params.id}, function(err, dbRes) {
+    Cocktail.findOne({_id: req.params.id}, function(err, dbRes) {
       if(err) {
         console.log(err);
         return dbRes.status(500).json({msg: 'server error'});
@@ -61,13 +54,17 @@ module.exports = function(app) {
   });
 
   app.put(COCKTAIL_URL + '/:id', function(req, res) {
-    var updatedCocktail = _prepForDb(req.body);
-    Cocktail.update({_id: req.params.id}, updatedCocktail, function(err, dbRes) {
-      if(err) {
-        console.log(err);
-        return dbRes.status(500).json({msg: 'server error'});
-      }
-      return res.status(200).json({msg: 'Cocktail updated'});
+    var updatedDrink = _prepForDb(req.body);
+    Cocktail.findOneAndUpdate({ _id: req.params.id },
+      updatedDrink, {
+        new: true
+      },
+      function(err, dbResponse) {
+        if (err) {
+          console.log(err);
+          return dbRes.status(500).json({msg: 'server error'});
+        }
+        return res.status(200).json(dbResponse);
     });
   });
 
