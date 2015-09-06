@@ -23,6 +23,13 @@ var _alphabetizeArray = function (arr) {
     .sort();
 };
 
+// Confirms that an object has the properties expected of a cocktail
+var _isACocktail = function (obj) {
+  return obj.hasOwnProperty('name') &&
+    obj.hasOwnProperty('url') &&
+    obj.hasOwnProperty('ingredients');
+};
+
 describe('The cocktail API', function () {
 
   it('Can add a new cocktail', function (done) {
@@ -64,7 +71,21 @@ describe('The cocktail API', function () {
         expect(res.body.ingredients).to.deep.equal(expectedIngredients);
         done();
       });
-  })
+  });
+
+  it('Can get a list of cocktails', function (done) {
+    chai
+      .request(APP_PATH)
+      .get(API_BASE)
+
+      .end(function (err, res) {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(Array.isArray(res.body) && res.body.length > 0).to.be.true;
+        expect(_isACocktail(res.body[0])).to.be.true;
+        done();
+      });
+  });
 
   it('Can update a cocktail', function (done) {
     chai
