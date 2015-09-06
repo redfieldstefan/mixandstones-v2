@@ -17,7 +17,7 @@ var _urlify = function(cocktailName) {
 var _prepForDb = function(cocktail) {
   return {
     name: cocktail.name,
-    url: urlify(cocktail.name)
+    url: urlify(cocktail.name),
     description: cocktail.description ?
       cocktail.description :
       '',
