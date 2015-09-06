@@ -1,0 +1,17 @@
+{
+  "fakeCocktail": {
+    "name": "Fake cocktail",
+    "ingredients": [
+      "gin",
+      "peanut butter"
+    ]
+  },
+  "updatedFakeCocktail": {
+    "name": "Updated fake cocktail",
+    "ingredients": [
+      "gin",
+      "peanut butter",
+      "jelly"
+    ]
+  }
+}

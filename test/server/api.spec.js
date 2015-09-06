@@ -5,27 +5,15 @@ var chaiHttp = require('chai-http');
 var expect = chai.expect;
 chai.use(chaiHttp);
 
+var fakeCocktails = require('../mock/cocktails');
 var serverConfig = require('../../server/config');
 var utils = require('../../common/utils');
 require('../../server/index'); // Side effect: starts server when tests run
 
 var API_BASE = '/api/cocktails/';
 var APP_PATH = 'http://localhost:' + serverConfig.port;
-var fakeCocktail = {
-  name: 'Fake cocktail',
-  ingredients: [
-    'gin',
-    'peanut butter'
-  ]
-};
-var updatedFakeCocktail = {
-  name: 'Updated fake cocktail',
-  ingredients: [
-    'gin',
-    'peanut butter',
-    'jelly'
-  ]
-};
+var fakeCocktail = fakeCocktails.fakeCocktail;
+var updatedFakeCocktail = fakeCocktails.updatedFakeCocktail;
 
 var fakeCocktailId;
 
