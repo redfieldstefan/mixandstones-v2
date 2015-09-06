@@ -11,6 +11,7 @@
     "lint": "npm run lint_backend && npm run lint_backend_test && npm run lint_client && npm run lint_client_test",
     "test_backend": "mocha test/server",
     "test": "npm run test_backend",
+    "check": "npm run lint && npm run test",
     "start": "node server/index",
     "db": "mongod --dbpath=./data"
   },
