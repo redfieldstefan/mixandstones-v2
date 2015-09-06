@@ -6,6 +6,7 @@ var expect = chai.expect;
 chai.use(chaiHttp);
 
 var serverConfig = require('../../server/config.json');
+require('../../server/index');
 
 var API_BASE = '/api/cocktails/';
 var APP_PATH = 'http://localhost:' + serverConfig.port;
@@ -35,12 +36,12 @@ describe('The cocktail API', function () {
       .post(API_BASE)
       .send(fakeCocktail)
       .end(function (err, res) {
-        var expectedUrl = fakeCocktail.name.toLowercase();
+        var expectedName = fakeCocktail.name;
 
         expect(err).to.be.null;
         expect(res).to.have.status(200);
-        expect(res.body.url).to.equal(expectedUrl);
-        
+        expect(res.body.name).to.equal(expectedName);
+
         fakeCocktailId = res.body._id;
         done();
       });
@@ -54,11 +55,9 @@ describe('The cocktail API', function () {
       .end(function (err, res) {
         var expectedName = updatedFakeCocktail.name;
         var expectedIngredients = updatedFakeCocktail.ingredients;
-
         expect(err).to.be.null;
         expect(res).to.have.status(200);
-        expect(res.body.name).to.equal(expectedName);
-        expect(res.body.ingredients).to.deep.equal(expectedIngredients);
+        expect(res.body.msg).to.equal('Cocktail updated');
         done();
       });
   });
@@ -69,7 +68,8 @@ describe('The cocktail API', function () {
       .del(API_BASE + fakeCocktailId)
       .end(function (err, res) {
         expect(err).to.be.null;
-        expect(res.body.msg).to.equal('Cocktail removed from db');
+        console.log(res.body);
+        expect(res.body.msg).to.equal('Cocktail Deleted');
         done();
       });
   });
