@@ -10,7 +10,6 @@ var server = http.createServer(app);
 app.use(bodyparser.json());
 
 require('../routes/api')(app);
-require('../routes/ui')(app);
 
 app.use(express.static(__dirname + (process.env.STATIC_DIR || '/dist')));
 
