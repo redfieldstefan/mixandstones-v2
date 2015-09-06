@@ -14,8 +14,14 @@ var API_BASE = '/api/cocktails/';
 var APP_PATH = 'http://localhost:' + serverConfig.port;
 var fakeCocktail = fakeCocktails.fakeCocktail;
 var updatedFakeCocktail = fakeCocktails.updatedFakeCocktail;
-
 var fakeCocktailId;
+
+// The db sorts ingredients (alphabetically), so the tests need to too
+var _alphabetizeArray = function (arr) {
+  return arr
+    .slice()
+    .sort();
+};
 
 describe('The cocktail API', function () {
 
@@ -28,9 +34,7 @@ describe('The cocktail API', function () {
       .end(function (err, res) {
         var expectedName = fakeCocktail.name;
         var expectedUrl = utils.formatForUrl(fakeCocktail.name);
-        var expectedIngredients = fakeCocktail.ingredients
-          .slice()
-          .sort(); // The db sorts ingredients (alphabetically)
+        var expectedIngredients = _alphabetizeArray(fakeCocktail.ingredients);
 
         expect(err).to.be.null;
         expect(res).to.have.status(200);
@@ -50,8 +54,14 @@ describe('The cocktail API', function () {
 
       .end(function (err, res) {
         var expectedName = fakeCocktail.name;
+        var expectedUrl = utils.formatForUrl(fakeCocktail.name);
+        var expectedIngredients = _alphabetizeArray(fakeCocktail.ingredients);
+
         expect(err).to.be.null;
+        expect(res).to.have.status(200);
         expect(res.body.name).to.equal(expectedName);
+        expect(res.body.url).to.equal(expectedUrl);
+        expect(res.body.ingredients).to.deep.equal(expectedIngredients);
         done();
       });
   })
@@ -65,9 +75,7 @@ describe('The cocktail API', function () {
       .end(function (err, res) {
         var expectedName = updatedFakeCocktail.name;
         var expectedUrl = utils.formatForUrl(updatedFakeCocktail.name);
-        var expectedIngredients = updatedFakeCocktail.ingredients
-          .slice()
-          .sort();
+        var expectedIngredients = _alphabetizeArray(updatedFakeCocktail.ingredients);
 
         expect(err).to.be.null;
         expect(res).to.have.status(200);
