@@ -2,22 +2,15 @@
 
 var Cocktail = require('../models/cocktail_model');
 var Ingredient = require('../models/ingredient_model');
+var utils = require('../common/utils');
 
 var COCKTAIL_URL = '/api/cocktails';
 var INGREDIENT_URL = '/api/ingredients';
 
-var _urlify = function(cocktailName) {
-  return cocktailName
-    .toLowerCase()
-    .replace(/\s/g, '-')
-    .replace(/[^A-Za-z0-9\-]/g, '')
-    .replace(/-{2,}/g, '-');
-};
-
 var _prepForDb = function(cocktail) {
   return {
     name: cocktail.name,
-    url: _urlify(cocktail.name),
+    url: utils.formatForUrl(cocktail.name),
     description: cocktail.description ?
       cocktail.description :
       '',
