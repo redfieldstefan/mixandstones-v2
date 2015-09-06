@@ -1,0 +1,4 @@
+---
+extends:
+  - ".eslintrc-client"
+  - ".eslintrc-spec"

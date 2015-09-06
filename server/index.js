@@ -16,8 +16,10 @@ app.use(express.static(__dirname + (process.env.STATIC_DIR || '/dist')));
 
 var port = process.env.PORT || 3000;
 
-server.listen(port, function() {
+server.listen(port, function () {
+  /*eslint-disable no-console*/
   console.log('Server is listenin hard on port:', port);
+  /*eslint-enable no-console*/
 });
 
 
