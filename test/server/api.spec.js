@@ -46,7 +46,7 @@ var _matchesCocktail = function (actual, expected) {
     return false;
   }
   return actual.name === expectedName &&
-    actual.url === utils.formatForUrl(expected.name) &&
+    actual.url === expectedUrl &&
     _.isEqual(actual.ingredients, expectedIngredients);
 };
 

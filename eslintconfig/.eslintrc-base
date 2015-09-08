@@ -1,0 +1,4 @@
+rules:
+  quotes: [1, "single"]
+  new-cap: 0
+  object-curly-spacing: [2, "always"]
