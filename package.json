@@ -11,19 +11,20 @@
     "lint": "npm run lint_backend && npm run lint_backend_test && npm run lint_client && npm run lint_client_test",
     "test_backend": "mocha test/server",
     "test": "npm run test_backend",
+    "check": "npm run lint && npm run test",
     "start": "node server/index",
     "db": "mongod --dbpath=./data"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/redfieldstefan/msv2.git"
+    "url": "https://github.com/redfieldstefan/mixandstones-v2.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/redfieldstefan/msv2/issues"
+    "url": "https://github.com/redfieldstefan/mixandstones-v2/issues"
   },
-  "homepage": "https://github.com/redfieldstefan/msv2",
+  "homepage": "https://github.com/redfieldstefan/mixandstones-v2",
   "dependencies": {
     "body-parser": "1.13.3",
     "express": "4.13.3",
@@ -37,6 +38,7 @@
     "eslint": "1.3.1",
     "eslint-config-defaults": "6.0.0",
     "eslint-plugin-filenames": "0.1.2",
-    "eslint-plugin-react": "3.3.1"
+    "eslint-plugin-react": "3.3.1",
+    "mocha": "^2.3.2"
   }
 }
