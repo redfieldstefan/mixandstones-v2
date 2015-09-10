@@ -9,6 +9,8 @@ var http = require('http');
 var mongoose = require('mongoose');
 var path = require('path');
 
+var serverConfig = require('./config');
+
 var app = express();
 var server = http.createServer(app);
 
@@ -23,10 +25,10 @@ require('../routes/react-server-render')(app);
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ms_dev');
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || serverConfig.port;
 
 server.listen(port, function () {
   /*eslint-disable no-console*/
-  console.log('Server is listenin hard on port:', port);
+  console.log('Server is listenin hard on port', port);
   /*eslint-enable no-console*/
 });
