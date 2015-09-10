@@ -18,7 +18,6 @@ app.engine('handlebars', hbs());
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, '../templates'));
 
-require('../routes/middleware')(app);
 require('../routes/api')(app);
 require('../routes/react-server-render')(app);
 
