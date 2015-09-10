@@ -1,18 +1,28 @@
 'use strict';
 
-var express = require('express');
-var http = require('http');
+require('node-jsx-babel').install({ extension: '.jsx' });
+
 var bodyparser = require('body-parser');
+var express = require('express');
+var hbs = require('express-handlebars');
+var http = require('http');
 var mongoose = require('mongoose');
+var path = require('path');
+
 var app = express();
 var server = http.createServer(app);
 
 app.use(bodyparser.json());
 
+app.engine('handlebars', hbs());
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, '../templates'));
+
+require('../routes/middleware')(app);
 require('../routes/api')(app);
+require('../routes/react-server-render')(app);
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ms_dev');
-app.use(express.static(__dirname + (process.env.STATIC_DIR || '/dist')));
 
 var port = process.env.PORT || 3000;
 
@@ -21,5 +31,3 @@ server.listen(port, function () {
   console.log('Server is listenin hard on port:', port);
   /*eslint-enable no-console*/
 });
-
-

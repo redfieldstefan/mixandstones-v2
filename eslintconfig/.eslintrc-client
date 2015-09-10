@@ -2,3 +2,6 @@
 extends:
   - "defaults/configurations/walmart/es6-react"
   - ".eslintrc-base"
+
+rules:
+  space-before-function-paren: [1, "always"]
