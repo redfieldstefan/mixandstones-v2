@@ -2,33 +2,33 @@
 
 var Iso = require('iso');
 var React = require('react');
+var Router = require('react-router');
 
 var alt = require('../alt');
-var CocktailComponent = require('../client/components/cocktail.jsx');
-var COCKTAIL_PATH = require('../server/config').api.cocktailPath;
-var dbOperations = require('../server/db-operations');
+var clientRoutes = require('../client/routes.jsx');
 
 module.exports = function (app) {
 
-  app.get(COCKTAIL_PATH + '/:id', function (req, res) {
+  /**
+   * Handler that intercepts all routes defined in `clientRoutes` and server-renders
+   * the corresponding component with the db's `msData` as props
+   */
+
+  app.use(function (req, res) {
     var iso = new Iso();
+    var data = res.locals.msData || {};
+    alt.bootstrap(JSON.stringify(data));
 
-    dbOperations.getCocktail(req.params.id)
-      .then(function (dbRes) {
-        alt.bootstrap(JSON.stringify(dbRes || {}));
+    Router.run(clientRoutes, req.url, function (Handler) {
+      var content = React.renderToString(
+        React.createElement(Handler, data)
+      );
+      iso.add(content, alt.flush());
 
-        var content = React.renderToString(
-          React.createElement(
-            CocktailComponent,
-            dbRes
-          )
-        );
-        iso.add(content, alt.flush());
-        res.render('main', {
-          html: iso.render()
-        });
+      res.render('main', {
+        html: iso.render()
       });
-
+    });
   });
 
 };

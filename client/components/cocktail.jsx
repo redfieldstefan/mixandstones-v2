@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 class Cocktail extends React.Component {
 
@@ -39,4 +39,4 @@ Cocktail.propTypes = {
   name: React.PropTypes.string
 };
 
-module.exports = Cocktail;
+export default Cocktail;

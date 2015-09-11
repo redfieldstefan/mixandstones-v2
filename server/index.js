@@ -21,6 +21,7 @@ app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, '../templates'));
 
 require('../routes/api')(app);
+require('../routes/middleware')(app);
 require('../routes/react-server-render')(app);
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ms_dev');

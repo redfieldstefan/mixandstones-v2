@@ -7,14 +7,10 @@ var utils = require('../common/utils');
 
 var _prepForDb = function (cocktail) {
   return {
-    name: cocktail.name,
-    url: utils.formatForUrl(cocktail.name),
-    description: cocktail.description ?
-      cocktail.description :
-      '',
-    ingredients: cocktail.ingredients ?
-      cocktail.ingredients.sort() :
-      []
+    name:         cocktail.name,
+    url:          utils.formatForUrl(cocktail.name),
+    description:  cocktail.description ? cocktail.description : '',
+    ingredients:  cocktail.ingredients ? cocktail.ingredients.sort() : []
   };
 };
 
