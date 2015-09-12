@@ -26,9 +26,15 @@
   },
   "homepage": "https://github.com/redfieldstefan/mixandstones-v2",
   "dependencies": {
+    "alt": "0.17.3",
     "body-parser": "1.13.3",
     "express": "4.13.3",
+    "express-handlebars": "2.0.1",
+    "iso": "4.2.0",
     "mongoose": "4.1.5",
+    "node-jsx-babel": "0.14.0",
+    "react": "0.13.3",
+    "react-router": "0.13.3",
     "underscore": "1.8.3"
   },
   "devDependencies": {

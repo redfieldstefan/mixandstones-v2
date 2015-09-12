@@ -11,8 +11,8 @@ var serverConfig = require('../../server/config');
 var utils = require('../../common/utils');
 require('../../server/index'); // Side effect: starts server when tests run
 
-var API_BASE = '/api/cocktails/';
 var APP_PATH = 'http://localhost:' + serverConfig.port;
+var COCKTAIL_PATH = serverConfig.api.base + serverConfig.api.cocktailPath + '/';
 var fakeCocktail = fakeCocktails.fakeCocktail;
 var updatedFakeCocktail = fakeCocktails.updatedFakeCocktail;
 
@@ -57,7 +57,7 @@ describe('The cocktail API', function () {
   it('Can add a new cocktail', function (done) {
     chai
       .request(APP_PATH)
-      .post(API_BASE)
+      .post(COCKTAIL_PATH)
       .send(fakeCocktail)
 
       .end(function (err, res) {
@@ -73,7 +73,7 @@ describe('The cocktail API', function () {
   it('Can get a cocktail', function (done) {
     chai
       .request(APP_PATH)
-      .get(API_BASE + fakeCocktailId)
+      .get(COCKTAIL_PATH + fakeCocktailId)
 
       .end(function (err, res) {
         expect(err).to.be.null;
@@ -86,7 +86,7 @@ describe('The cocktail API', function () {
   it('Can get a list of cocktails', function (done) {
     chai
       .request(APP_PATH)
-      .get(API_BASE)
+      .get(COCKTAIL_PATH)
 
       .end(function (err, res) {
         expect(err).to.be.null;
@@ -100,7 +100,7 @@ describe('The cocktail API', function () {
   it('Can update a cocktail', function (done) {
     chai
       .request(APP_PATH)
-      .put(API_BASE + fakeCocktailId)
+      .put(COCKTAIL_PATH + fakeCocktailId)
       .send(updatedFakeCocktail)
 
       .end(function (err, res) {
@@ -114,7 +114,7 @@ describe('The cocktail API', function () {
   it('Can delete a cocktail', function (done) {
     chai
       .request(APP_PATH)
-      .del(API_BASE + fakeCocktailId)
+      .del(COCKTAIL_PATH + fakeCocktailId)
 
       .end(function (err, res) {
         expect(err).to.be.null;
