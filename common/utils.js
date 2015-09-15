@@ -3,7 +3,7 @@
 module.exports = {
 
   // e.g., 'Gin and Tonic' => 'gin-and-tonic'
-  formatForUrl: function (str) {
+  formatForUrl (str) {
     return str
       .toLowerCase()
       .replace(/\s/g, '-') // spaces => hyphens

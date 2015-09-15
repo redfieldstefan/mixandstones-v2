@@ -1,4 +1,8 @@
 ---
 extends:
-  - "defaults/configurations/walmart/es5-node"
+  - "defaults/configurations/walmart/es6-node"
   - ".eslintrc-base"
+
+rules:
+  strict: [0]
+  space-before-function-paren: [1, "always"]

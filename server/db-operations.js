@@ -1,11 +1,11 @@
 'use strict';
 
-var _ = require('underscore');
+const _ = require('underscore');
 
-var Cocktail = require('../models/cocktail-model');
-var utils = require('../common/utils');
+const Cocktail = require('../models/cocktail-model');
+const utils = require('../common/utils');
 
-var _prepForDb = function (cocktail) {
+const _prepForDb = (cocktail) => {
   return {
     name:         cocktail.name,
     url:          utils.formatForUrl(cocktail.name),
@@ -16,37 +16,29 @@ var _prepForDb = function (cocktail) {
 
 module.exports = {
 
-  createCocktail: function (cocktailBody) {
-    var cocktail = new Cocktail(_prepForDb(cocktailBody));
+  createCocktail (cocktailBody) {
+    const cocktail = new Cocktail(_prepForDb(cocktailBody));
     return cocktail.save()
-      .then(function (dbRes) {
-        return _.clone(dbRes);
-      });
+      .then((dbRes) => _.clone(dbRes));
   },
 
-  getCocktail: function (cocktailId) {
+  getCocktail (cocktailId) {
     return Cocktail.findOne({ _id: cocktailId })
-      .then(function (dbRes) {
-        return _.clone(dbRes);
-      });
+      .then((dbRes) => _.clone(dbRes));
   },
 
-  getAllCocktails: function () {
+  getAllCocktails () {
     return Cocktail.find({})
-      .then(function (dbRes) {
-        return _.clone(dbRes);
-      });
+      .then((dbRes) => _.clone(dbRes));
   },
 
-  updateCocktail: function (id, cocktailBody) {
-    var updatedCocktail = _prepForDb(cocktailBody);
+  updateCocktail (id, cocktailBody) {
+    const updatedCocktail = _prepForDb(cocktailBody);
     return Cocktail.findOneAndUpdate({ _id: id }, updatedCocktail, { new: true })
-      .then(function (dbRes) {
-        return _.clone(dbRes);
-      });
+      .then((dbRes) => _.clone(dbRes));
   },
 
-  deleteCocktail: function (id) {
+  deleteCocktail (id) {
     return Cocktail.remove({ _id: id });
   }
 

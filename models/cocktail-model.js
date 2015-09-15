@@ -1,8 +1,8 @@
 'use strict';
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var cocktailSchema = mongoose.Schema({
+const cocktailSchema = mongoose.Schema({
   name: String,
   url: String,
   description: String,
