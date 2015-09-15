@@ -2,17 +2,17 @@
 
 require('node-jsx-babel').install({ extension: '.jsx' });
 
-var bodyparser = require('body-parser');
-var express = require('express');
-var hbs = require('express-handlebars');
-var http = require('http');
-var mongoose = require('mongoose');
-var path = require('path');
+const bodyparser = require('body-parser');
+const express = require('express');
+const hbs = require('express-handlebars');
+const http = require('http');
+const mongoose = require('mongoose');
+const path = require('path');
 
-var serverConfig = require('./config');
+const serverConfig = require('./config');
 
-var app = express();
-var server = http.createServer(app);
+const app = express();
+const server = http.createServer(app);
 
 app.use(bodyparser.json());
 
@@ -24,11 +24,11 @@ require('../routes/api')(app);
 require('../routes/middleware')(app);
 require('../routes/react-server-render')(app);
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ms_dev');
+mongoose.connect(process.env.MONGOLAB_URI || serverConfig.db.path);
 
-var port = process.env.PORT || serverConfig.port;
+const port = process.env.PORT || serverConfig.port;
 
-server.listen(port, function () {
+server.listen(port, () => {
   /*eslint-disable no-console*/
   console.log('Server is listenin hard on port', port);
   /*eslint-enable no-console*/
