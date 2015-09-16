@@ -13,4 +13,12 @@ module.exports = (app) => {
       });
   });
 
+  app.get(`${COCKTAIL_PATH}`, (req, res, next) => {
+    dbOperations.getAllCocktails()
+      .then(dbRes) => {
+        res.locals.msData = dbRes;
+        next();
+      };
+  });
+
 };
