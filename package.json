@@ -1,8 +1,11 @@
 {
-  "name": "msv2",
+  "name": "mixandstones-v2",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "Cocktail recommendation engine",
+  "main": "server/index.js",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "scripts": {
     "lint_backend": "eslint server/ common/ routes/ models/ -c eslintconfig/.eslintrc-server",
     "lint_backend_test": "eslint test/server -c eslintconfig/.eslintrc-server-test",
