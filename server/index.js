@@ -1,6 +1,6 @@
 'use strict';
 
-require('node-jsx-babel').install({ extension: '.jsx' });
+require('babel/register');
 
 const bodyparser = require('body-parser');
 const express = require('express');
@@ -21,6 +21,7 @@ app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, '../templates'));
 
 require('../routes/api')(app);
+require('../routes/static')(app);
 require('../routes/middleware')(app);
 require('../routes/react-server-render')(app);
 
