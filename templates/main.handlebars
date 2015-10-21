@@ -3,5 +3,11 @@
   <head>
     <title>"I'm server-rendered!"</title>
   </head>
-  {{{html}}}
+  <body>
+    <div class="js-content">
+      {{{content}}}
+    </div>
+    <div class="js-bootstrap" data-bootstrap={{{bootstrapData}}}></div>
+    <script src="{{{bundle}}}"></script>
+  </body>
 </html>

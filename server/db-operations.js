@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('underscore');
-
 const Cocktail = require('../models/cocktail-model');
 const utils = require('../common/utils');
 

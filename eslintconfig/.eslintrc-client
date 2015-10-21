@@ -5,3 +5,6 @@ extends:
 
 rules:
   space-before-function-paren: [1, "always"]
+
+globals:
+  document: "true"

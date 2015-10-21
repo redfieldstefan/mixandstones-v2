@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router';
+import Router, { Route } from 'react-router';
 
 import App from '../client/components/app.jsx';
 import Cocktail from '../client/components/cocktail.jsx';
@@ -12,4 +12,14 @@ const routes = (
   </Route>
 );
 
-export default routes;
+export default {
+
+  routes,
+
+  run: (el) => {
+    Router.run(routes, Router.HistoryLocation, (Handler) => {
+      React.render(React.createElement(Handler), el);
+    });
+  }
+
+};

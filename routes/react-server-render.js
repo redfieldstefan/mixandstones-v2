@@ -1,11 +1,12 @@
 'use strict';
 
-const Iso = require('iso');
 const React = require('react');
 const Router = require('react-router');
 
 const alt = require('../alt');
-const clientRoutes = require('../client/routes.jsx');
+const clientRoutes = require('../client/routes.jsx').routes;
+
+const WEBPACK_DEV = process.env.WEBPACK_DEV === 'true';
 
 module.exports = (app) => {
 
@@ -15,18 +16,21 @@ module.exports = (app) => {
    */
 
   app.use((req, res) => {
-    const iso = new Iso();
-    const data = res.locals.msData || {};
-    alt.bootstrap(JSON.stringify(data));
 
     Router.run(clientRoutes, req.url, (Handler) => {
+
+      const bundle = WEBPACK_DEV ?
+        'http://127.0.0.1:2992/bundle.js' :
+        '/dist/bundle.js';
+      const bootstrapData = alt.takeSnapshot();
       const content = React.renderToString(
-        React.createElement(Handler, data)
+        React.createElement(Handler)
       );
-      iso.add(content, alt.flush());
 
       res.render('main', {
-        html: iso.render()
+        bundle,
+        content,
+        bootstrapData
       });
     });
   });

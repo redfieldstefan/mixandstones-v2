@@ -1,12 +1,12 @@
 import React from 'react';
 
+import CocktailStore from '../stores/cocktail-store';
+
 class Cocktails extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = {
-      cocktails: props.cocktails
-    };
+    this.state = CocktailStore.getState();
   }
 
   _getCocktailList () {
@@ -28,13 +28,5 @@ class Cocktails extends React.Component {
   }
 
 }
-
-Cocktails.propTypes = {
-  cocktails: React.PropTypes.arrayOf(React.PropTypes.shape({
-    id: React.PropTypes.string,
-    name: React.PropTypes.string,
-    ingredients: React.PropTypes.array
-  })).isRequired
-};
 
 export default Cocktails;
