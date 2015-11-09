@@ -21,17 +21,13 @@ module.exports = {
     const cocktail = new Cocktail(_prepForDb(cocktailBody));
     return cocktail
       .save()
-      .lean()
-      // ^ Requests normal JS object, not magic Mongoose object:
-      // see: http://mongoosejs.com/docs/api.html#query_Query-lean
-      .then((dbRes) => _formatId(dbRes));
+      .then((dbRes) => _formatId(dbRes.toObject()));
   },
 
   getCocktail (cocktailId) {
     return Cocktail
       .findOne({ _id: cocktailId })
-      .lean()
-      .then((dbRes) => _formatId(dbRes));
+      .then((dbRes) => _formatId(dbRes.toObject()));
   },
 
   getAllCocktails () {
@@ -45,8 +41,7 @@ module.exports = {
     const updatedCocktail = _prepForDb(cocktailBody);
     return Cocktail
       .findOneAndUpdate({ _id: id }, updatedCocktail, { new: true })
-      .lean()
-      .then((dbRes) => _formatId(dbRes));
+      .then((dbRes) => _formatId(dbRes.toObject()));
   },
 
   deleteCocktail (id) {

@@ -1,5 +1,7 @@
 'use strict';
 
+require('../../server/index'); // Side effect: starts server when tests run
+
 const _ = require('underscore');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -9,7 +11,6 @@ chai.use(chaiHttp);
 const fakeCocktails = require('../mock/cocktails');
 const serverConfig = require('../../server/config');
 const utils = require('../../common/utils');
-require('../../server/index'); // Side effect: starts server when tests run
 
 const APP_PATH = `http:\/\/localhost:${serverConfig.port}`;
 const COCKTAIL_PATH = `${serverConfig.api.base}${serverConfig.api.cocktailPath}/`;
@@ -65,7 +66,7 @@ describe('The cocktail API', () => {
         expect(res).to.have.status(200);
         expect(_matchesCocktail(res.body, fakeCocktail)).to.be.true;
 
-        fakeCocktailId = res.body._id;
+        fakeCocktailId = res.body.id;
         done();
       });
   });
