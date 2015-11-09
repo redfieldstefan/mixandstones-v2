@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('underscore');
-
 const Cocktail = require('../models/cocktail-model');
 const utils = require('../common/utils');
 
@@ -14,28 +12,36 @@ const _prepForDb = (cocktail) => {
   };
 };
 
+// Returns a copy of the object with an `id` field instead of `_id`
+const _formatId = (obj) => utils.transformKeys(obj, { _id: 'id' });
+
 module.exports = {
 
   createCocktail (cocktailBody) {
     const cocktail = new Cocktail(_prepForDb(cocktailBody));
-    return cocktail.save()
-      .then((dbRes) => _.clone(dbRes));
+    return cocktail
+      .save()
+      .then((dbRes) => _formatId(dbRes.toObject()));
   },
 
   getCocktail (cocktailId) {
-    return Cocktail.findOne({ _id: cocktailId })
-      .then((dbRes) => _.clone(dbRes));
+    return Cocktail
+      .findOne({ _id: cocktailId })
+      .then((dbRes) => _formatId(dbRes.toObject()));
   },
 
   getAllCocktails () {
-    return Cocktail.find({})
-      .then((dbRes) => _.clone(dbRes));
+    return Cocktail
+      .find({})
+      .lean()
+      .then((dbRes) => dbRes.map(_formatId));
   },
 
   updateCocktail (id, cocktailBody) {
     const updatedCocktail = _prepForDb(cocktailBody);
-    return Cocktail.findOneAndUpdate({ _id: id }, updatedCocktail, { new: true })
-      .then((dbRes) => _.clone(dbRes));
+    return Cocktail
+      .findOneAndUpdate({ _id: id }, updatedCocktail, { new: true })
+      .then((dbRes) => _formatId(dbRes.toObject()));
   },
 
   deleteCocktail (id) {
