@@ -28,6 +28,15 @@ module.exports = {
       }
       return memo;
     }, {});
-  }
+  },
+
+  prepForDb (cocktail) {
+    return {
+      name:         cocktail.name,
+      url:          this.formatForUrl(cocktail.name),
+      description:  cocktail.description ? cocktail.description : '',
+      ingredients:  cocktail.ingredients ? cocktail.ingredients.sort() : []
+    };
+  },
 
 };
